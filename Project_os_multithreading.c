@@ -6,7 +6,7 @@
 pthread_mutex_t mutex, writerThread;
 int globalSharedVariable, readersCount = 0;
 
-void *readerfunction(void *arg){
+void *readerfunction(void *argument){
         //Entry Part
         pthread_mutex_lock(&mutex);
         readersCount++;
@@ -16,8 +16,8 @@ void *readerfunction(void *arg){
         pthread_mutex_unlock(&mutex);//it is unlocked so next reader can come
         //Exit Part
         int n = rand() % 10;
-        int d = ((int)arg);
-        printf("Reader %d wait for Random time(0-10ns)= %d\n", d, n);
+        int d = ((int)argument);
+        printf("Reader %d wait for Random time= %d\n", d, n);
         sleep(n);
         printf("Enter the number of time Reader %d want to read:\n", d);
         int notime;
@@ -37,10 +37,10 @@ void *readerfunction(void *arg){
         pthread_mutex_unlock(&mutex);
 }
 
-void *writerfunction(void *arg){
+void *writerfunction(void *argument){
         pthread_mutex_lock(&writerThread);
         int n = rand() % 10;
-        int d = ((int)arg);
+        int d = ((int)argument);
         printf("==============================================\n");
         printf("W%d Wait for Random time(0-10ns) = %d\n", d, n);
         sleep(n);
